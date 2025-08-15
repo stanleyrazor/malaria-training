@@ -1,112 +1,112 @@
 [
   {
-    "objectID": "R/NEAIR/NEAIR.html#ggplot2",
-    "href": "R/NEAIR/NEAIR.html#ggplot2",
+    "objectID": "R/dataviz/dataviz.html#ggplot2",
+    "href": "R/dataviz/dataviz.html#ggplot2",
     "title": "Data visualiaation with {ggplot2}",
     "section": "ggplot2",
     "text": "ggplot2\n\n\n1 2 3 4 5 6\n\n\n\nggplot2 is the data visualization package that is loaded with the tidyverse suite and can alternatively be loaded independently.\n\nthe grammar of graphics maps data to the aesthetic attributes of geometric points\n\n\nencoding data into visual asttributes (e.g., length, color, position, size) is how we signify changes and comparisons"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#line-chart",
-    "href": "R/NEAIR/NEAIR.html#line-chart",
+    "objectID": "R/dataviz/dataviz.html#line-chart",
+    "href": "R/dataviz/dataviz.html#line-chart",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Line chart",
     "text": "Line chart\nFor the data visualization exercise, we will utilize the datasets from the previous sessions.\n\nmdata &lt;- read.csv('data/interim/pfpr_intvn.csv')\nbusia &lt;- mdata |&gt; filter(county == 'Busia')\nggplot(busia) + \n  geom_line(aes(x = year, y = pfpr, col = residence))\n\n\n\n1 2 3 4 5 6"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#adding-functional-elements-labels",
-    "href": "R/NEAIR/NEAIR.html#adding-functional-elements-labels",
+    "objectID": "R/dataviz/dataviz.html#adding-functional-elements-labels",
+    "href": "R/dataviz/dataviz.html#adding-functional-elements-labels",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Adding functional elements (labels)",
     "text": "Adding functional elements (labels)\n\n\n1 2 3 4 5 6\n\n\n\nggplot(busia) + \n  geom_line(aes(x = year, y = pfpr, col = residence)) + \n  labs(title = 'Plasmodium Falciparum Prevalence in Busia County',\n       y = 'Year',\n       x = 'PfPr (%)')"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#adding-functional-elements-themes",
-    "href": "R/NEAIR/NEAIR.html#adding-functional-elements-themes",
+    "objectID": "R/dataviz/dataviz.html#adding-functional-elements-themes",
+    "href": "R/dataviz/dataviz.html#adding-functional-elements-themes",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Adding functional elements (themes)",
     "text": "Adding functional elements (themes)\n\n\n1 2 3 4 5 6\n\n\n\nggplot(busia) + \n  geom_line(aes(x = year, y = pfpr, col = residence)) + \n  labs(title = 'Plasmodium Falciparum Prevalence in Busia County',\n       y = 'Year',\n       x = 'PfPr (%)') + \n  theme_bw()\n# other themes: theme_bw(), theme_light(), theme_minimal(), theme_gray(), theme_dark(), theme_classic()"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#scatter-plots",
-    "href": "R/NEAIR/NEAIR.html#scatter-plots",
+    "objectID": "R/dataviz/dataviz.html#scatter-plots",
+    "href": "R/dataviz/dataviz.html#scatter-plots",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Scatter plots",
     "text": "Scatter plots\n\n\n1 2 3 4 5 6\n\n\n\nggplot(busia) + \n  geom_point(aes(x = itn_coverage, y = pfpr)) + \n  labs(title = 'The relationship between ITN use and PfPr',\n       x = 'ITN Coverage (%)',\n       y = 'PfPr (%)') + \n  theme_bw()"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#adding-aesthetic-elements-color-shape-size-alpha",
-    "href": "R/NEAIR/NEAIR.html#adding-aesthetic-elements-color-shape-size-alpha",
+    "objectID": "R/dataviz/dataviz.html#adding-aesthetic-elements-color-shape-size-alpha",
+    "href": "R/dataviz/dataviz.html#adding-aesthetic-elements-color-shape-size-alpha",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Adding aesthetic elements (color, shape, size, alpha)",
     "text": "Adding aesthetic elements (color, shape, size, alpha)\n\n\n1 2 3 4 5 6\n\n\n\nggplot(busia) + \n  geom_point(aes(x = itn_coverage, y = pfpr),\n             color = 'red', size = 2, shape = 15, alpha = 1) + \n  labs(title = 'The relationship between ITN use and PfPr',\n       x = 'ITN Coverage (%)',\n       y = 'PfPr (%)') + \n  theme_bw()\n# try other colors, sizes, and shapes: 15, 16, 17, i.e. 1-20\n# alpha values are for opacity of points: ranging from 0-1"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#adding-aesthetic-elements-color",
-    "href": "R/NEAIR/NEAIR.html#adding-aesthetic-elements-color",
+    "objectID": "R/dataviz/dataviz.html#adding-aesthetic-elements-color",
+    "href": "R/dataviz/dataviz.html#adding-aesthetic-elements-color",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Adding aesthetic elements (color)",
     "text": "Adding aesthetic elements (color)\n\n\n1 2 3 4 5 6\n\n\n\nggplot(busia) + \n  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + \n  labs(title = 'The relationship between ITN use and PfPr',\n       x = 'ITN Coverage (%)',\n       y = 'PfPr (%)') + \n  theme_bw()"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#adding-functional-elements-scale",
-    "href": "R/NEAIR/NEAIR.html#adding-functional-elements-scale",
+    "objectID": "R/dataviz/dataviz.html#adding-functional-elements-scale",
+    "href": "R/dataviz/dataviz.html#adding-functional-elements-scale",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Adding functional elements (scale)",
     "text": "Adding functional elements (scale)\n\n\n1 2 3 4 5 6\n\n\n\nggplot(busia) + \n  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + \n  scale_x_continuous(labels = percent_format()) + \n  scale_y_continuous(labels = percent_format()) +\n  labs(title = 'The relationship between ITN use and PfPr',\n       x = 'ITN Coverage (%)',\n       y = 'PfPr (%)') + \n  theme_bw()"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#adding-functional-elements-trends",
-    "href": "R/NEAIR/NEAIR.html#adding-functional-elements-trends",
+    "objectID": "R/dataviz/dataviz.html#adding-functional-elements-trends",
+    "href": "R/dataviz/dataviz.html#adding-functional-elements-trends",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Adding functional elements (trends)",
     "text": "Adding functional elements (trends)\n\n\n1 2 3 4 5 6\n\n\n\nggplot(busia) + \n  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + \n  geom_smooth(aes(x = itn_coverage, y = pfpr)) + \n  scale_x_continuous(labels = percent_format()) + \n  scale_y_continuous(labels = percent_format()) +\n  labs(title = 'The relationship between ITN use and PfPr',\n       x = 'ITN Coverage (%)',\n       y = 'PfPr (%)') + \n  theme_bw()"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#adding-functionality-panels",
-    "href": "R/NEAIR/NEAIR.html#adding-functionality-panels",
+    "objectID": "R/dataviz/dataviz.html#adding-functionality-panels",
+    "href": "R/dataviz/dataviz.html#adding-functionality-panels",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Adding functionality (panels)",
     "text": "Adding functionality (panels)\n\n\n1 2 3 4 5 6\n\n\n\nggplot(mdata |&gt; filter(county %in% c('Turkana', 'Busia', 'Nairobi'))) + \n  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + \n  geom_smooth(aes(x = itn_coverage, y = pfpr, color = residence)) + \n  scale_x_continuous(labels = percent_format()) + \n  scale_y_continuous(labels = percent_format()) +\n  facet_wrap(~county, scale = 'free') + \n  labs(title = 'The relationship between ITN use and PfPr',\n       x = 'ITN Coverage (%)',\n       y = 'PfPr (%)') + \n  theme_bw()"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#bar-charts-and-column-charts",
-    "href": "R/NEAIR/NEAIR.html#bar-charts-and-column-charts",
+    "objectID": "R/dataviz/dataviz.html#bar-charts-and-column-charts",
+    "href": "R/dataviz/dataviz.html#bar-charts-and-column-charts",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Bar charts and column charts",
     "text": "Bar charts and column charts\n\n\n1 2 3 4 5 6\n\n\n\nrain_data &lt;- read.csv('data/interim/rainfall_data.csv')\n\nhead(rain_data)\n\n\nHow do we filter to end up with: year: 2023, the counties: [Mombasa, Turkana, Nyeri], residence: urban centers only ?\nHow do we order the dataset by county, year and month ?"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#maps",
-    "href": "R/NEAIR/NEAIR.html#maps",
+    "objectID": "R/dataviz/dataviz.html#maps",
+    "href": "R/dataviz/dataviz.html#maps",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Maps",
-    "text": "Maps\n\n\n1 2 3 4 5 6\n\n\nFor plotting maps, we will need a shapefile - essentially a data object holding the geometry of locations, to be plotted on maps (boundaries, lines, etc)\n\nshp &lt;- st_read('data/interim/shp/kenyan_counties.shp')\nhead(shp)\n\n\n\n\nReading layer `kenyan_counties' from data source \n  `/Users/cema/Documents/GitHub/malaria-training/R/NEAIR/data/interim/shp/kenyan_counties.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 47 features and 3 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 33.90959 ymin: -4.720417 xmax: 41.92622 ymax: 5.061166\nGeodetic CRS:  WGS 84\n\n\nSimple feature collection with 6 features and 3 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 33.90959 ymin: -1.031154 xmax: 37.93591 ymax: 1.660731\nGeodetic CRS:  WGS 84\n  iso3c country          name_1                       geometry\n1   KEN   Kenya         Baringo MULTIPOLYGON (((35.77199 -0...\n2   KEN   Kenya           Bomet MULTIPOLYGON (((35.26166 -1...\n3   KEN   Kenya         Bungoma MULTIPOLYGON (((34.87053 0....\n4   KEN   Kenya           Busia MULTIPOLYGON (((34.02997 -0...\n5   KEN   Kenya Elgeyo-Marakwet MULTIPOLYGON (((35.52365 0....\n6   KEN   Kenya            Embu MULTIPOLYGON (((37.67188 -0..."
+    "text": "Maps\n\n\n1 2 3 4 5 6\n\n\nFor plotting maps, we will need a shapefile - essentially a data object holding the geometry of locations, to be plotted on maps (boundaries, lines, etc)\n\nshp &lt;- st_read('data/interim/shp/kenyan_counties.shp')\nhead(shp)\n\n\n\n\nReading layer `kenyan_counties' from data source \n  `/Users/cema/Documents/GitHub/malaria-training/R/dataviz/data/interim/shp/kenyan_counties.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 47 features and 3 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 33.90959 ymin: -4.720417 xmax: 41.92622 ymax: 5.061166\nGeodetic CRS:  WGS 84\n\n\nSimple feature collection with 6 features and 3 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 33.90959 ymin: -1.031154 xmax: 37.93591 ymax: 1.660731\nGeodetic CRS:  WGS 84\n  iso3c country          name_1                       geometry\n1   KEN   Kenya         Baringo MULTIPOLYGON (((35.77199 -0...\n2   KEN   Kenya           Bomet MULTIPOLYGON (((35.26166 -1...\n3   KEN   Kenya         Bungoma MULTIPOLYGON (((34.87053 0....\n4   KEN   Kenya           Busia MULTIPOLYGON (((34.02997 -0...\n5   KEN   Kenya Elgeyo-Marakwet MULTIPOLYGON (((35.52365 0....\n6   KEN   Kenya            Embu MULTIPOLYGON (((37.67188 -0..."
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#plotting-simple-maps---without-data",
-    "href": "R/NEAIR/NEAIR.html#plotting-simple-maps---without-data",
+    "objectID": "R/dataviz/dataviz.html#plotting-simple-maps---without-data",
+    "href": "R/dataviz/dataviz.html#plotting-simple-maps---without-data",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Plotting simple maps - without data",
     "text": "Plotting simple maps - without data\n\n\n1 2 3 4 5 6\n\n\nThe geometric object to use is the geom_sf, and a neat theme, preferrably theme_void\n\nggplot(shp) + \n  geom_sf(aes(geometry = geometry, fill = name_1), \n          show.legend = F) + \n  theme_void()"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#plotting-simple-maps---with-pfpr-data",
-    "href": "R/NEAIR/NEAIR.html#plotting-simple-maps---with-pfpr-data",
+    "objectID": "R/dataviz/dataviz.html#plotting-simple-maps---with-pfpr-data",
+    "href": "R/dataviz/dataviz.html#plotting-simple-maps---with-pfpr-data",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Plotting simple maps - with PfPr data",
     "text": "Plotting simple maps - with PfPr data\n\n\n1 2 3 4 5 6\n\n\nWe need to merge our datasets together (shapefile and data), to have a single shapefile with the data column of interest, the EIR (transmission intensity).\n\neir_data &lt;- read.csv('data/interim/eir_data.csv')\nshp_data &lt;- merge(shp, eir_data, by = 'name_1')\n\nggplot(shp_data) + \n  geom_sf(aes(geometry = geometry, fill = eir)) + \n  theme_void()"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#ggplot2-resources",
-    "href": "R/NEAIR/NEAIR.html#ggplot2-resources",
+    "objectID": "R/dataviz/dataviz.html#ggplot2-resources",
+    "href": "R/dataviz/dataviz.html#ggplot2-resources",
     "title": "Data visualiaation with {ggplot2}",
     "section": "ggplot2 resources",
     "text": "ggplot2 resources\n\n\n1 2 3 4 5 6\n\n\nfrom R for Data Science\n\nData Visualization: a practical introduction\n\ncreating custom themes\n\nthe ggplot2 book\n\nthe R graph gallery"
   },
   {
-    "objectID": "R/NEAIR/NEAIR.html#putting-it-all-together",
-    "href": "R/NEAIR/NEAIR.html#putting-it-all-together",
+    "objectID": "R/dataviz/dataviz.html#putting-it-all-together",
+    "href": "R/dataviz/dataviz.html#putting-it-all-together",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Putting it all together",
     "text": "Putting it all together\n\n\n1 2 3 4 5 6\n\n\n\nwith what we’ve done so far, in your .R file:\n\n\nBasics and fundamentals of R programming\nVisualization of epi data\n\n\n\n\nand that file would make it extremely easy for you or someone else to reproduce this analysis.\n\n\n\n\nCredits: github.com/meghall06/neair"
