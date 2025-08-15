@@ -1,0 +1,795 @@
+---
+title: "Data visualiaation with {ggplot2}"
+author: "Stanley Sayianka<br>-<br>Aug 19, 2025"
+format: 
+  revealjs:
+    footer: "[Credits: github.com/meghall06/neair](https://github.com/meghall06/neair)&nbsp;&nbsp;&nbsp;"
+    theme: [moon, custom.scss]
+    preview-links: auto
+    chalkboard: 
+      boardmarker-width: 5
+from: markdown+emoji
+execute:
+  echo: true
+---
+
+# Data visualization
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+1 [2 3 4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+## ggplot2
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+1 [2 3 4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+<br>
+
+`ggplot2` is the data visualization package that is loaded with the `tidyverse` suite and can alternatively be loaded independently.
+
+<br>
+
+the [g]{style="color:#cc0000"}rammar of [g]{style="color:#cc0000"}raphics maps data to the aesthetic attributes of geometric points
+
+. . .
+
+<br>
+
+encoding data into visual asttributes (e.g., length, color, position, size) is how we signify changes and comparisons
+
+---
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+1 [2 3 4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+The syntax :
+
+<br>
+
+We use `+` to join the components of a ggplot object instead of the pipe `|>`
+
+<br>
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(scales)
+library(sf)
+```
+
+```{r}
+#| code-line-numbers: "1-2|4-6|8-9|11-12"
+#| eval: false
+
+# we need to pass our data
+ggplot(data = your_data) +    
+  
+  # we need to specify the geometry object: line, point, histogram, bar, density, area etc.
+  # we also pass aesthetics including x/y variable, color, fill, size, shape, opacity etc.
+  geom_*.*(mapping = aes()) + 
+                
+  # the labels: title, x-label, y-label, subtitles, caption              
+  labs(our_labels) +  
+  
+  # our themes including fonts, and other theming objects
+  theme_*.*()                 
+```
+
+---
+
+## Line chart
+
+For the data visualization exercise, we will utilize the datasets from the previous sessions.
+
+```{r}
+#| code-line-numbers: "1|2|3-4"
+#| eval: false
+mdata <- read.csv('data/interim/pfpr_intvn.csv')
+busia <- mdata |> filter(county == 'Busia')
+ggplot(busia) + 
+  geom_line(aes(x = year, y = pfpr, col = residence))
+```
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1]{style="opacity:0.25"} 2 [3 4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+mdata <- read.csv('data/interim/pfpr_intvn.csv')
+busia <- mdata |> filter(county == 'Busia')
+ggplot(busia) + 
+  geom_line(aes(x = year, y = pfpr, col = residence))
+```
+
+---
+
+## Adding functional elements (labels)
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1]{style="opacity:0.25"} 2 [3 4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+
+```{r}
+#| code-line-numbers: "1-2|3-5"
+#| eval: false
+ggplot(busia) + 
+  geom_line(aes(x = year, y = pfpr, col = residence)) + 
+  labs(title = 'Plasmodium Falciparum Prevalence in Busia County',
+       y = 'Year',
+       x = 'PfPr (%)')
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(busia) + 
+  geom_line(aes(x = year, y = pfpr, col = residence)) + 
+  labs(title = 'Plasmodium Falciparum Prevalence in Busia County',
+       x = 'Year',
+       y = 'PfPr (%)')
+```
+
+---
+
+## Adding functional elements (themes)
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1]{style="opacity:0.25"} 2 [3 4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| code-line-numbers: "1-2|3-5|6|7"
+#| eval: false
+ggplot(busia) + 
+  geom_line(aes(x = year, y = pfpr, col = residence)) + 
+  labs(title = 'Plasmodium Falciparum Prevalence in Busia County',
+       y = 'Year',
+       x = 'PfPr (%)') + 
+  theme_bw()
+# other themes: theme_bw(), theme_light(), theme_minimal(), theme_gray(), theme_dark(), theme_classic()
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(busia) + 
+  geom_line(aes(x = year, y = pfpr, col = residence)) + 
+  labs(title = 'Plasmodium Falciparum Prevalence in Busia County',
+       y = 'Year',
+       x = 'PfPr (%)') + 
+  theme_bw()
+# other themes: theme_bw(), theme_light(), theme_minimal(), theme_gray(), theme_dark(), theme_classic()
+```
+
+---
+
+## Scatter plots
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2]{style="opacity:0.25"} 3 [4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+
+```{r}
+#| code-line-numbers: "1-2|3-6"
+#| eval: false
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr)) + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr)) + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+---
+
+## Adding aesthetic elements (color, shape, size, alpha)
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2]{style="opacity:0.25"} 3 [4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| code-line-numbers: "1-2|3|4-7|8-9"
+#| eval: false
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr),
+             color = 'red', size = 2, shape = 15, alpha = 1) + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+# try other colors, sizes, and shapes: 15, 16, 17, i.e. 1-20
+# alpha values are for opacity of points: ranging from 0-1
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr),
+             color = 'red', size = 2, shape = 15, alpha = 1) + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+# try other colors, sizes, and shapes: 15, 16, 17, i.e. 1-20
+# alpha values are for opacity of points: ranging from 0-1
+```
+
+---
+
+## Adding aesthetic elements (color)
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2]{style="opacity:0.25"} 3 [4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| code-line-numbers: "1-2|3-6"
+#| eval: false
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+---
+
+## Adding functional elements (scale)
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2]{style="opacity:0.25"} 3 [4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| code-line-numbers: "1-2|3-4|5-8"
+#| eval: false
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  scale_x_continuous(labels = percent_format()) + 
+  scale_y_continuous(labels = percent_format()) +
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  scale_x_continuous(labels = percent_format()) + 
+  scale_y_continuous(labels = percent_format()) +
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+---
+
+
+## Adding functional elements (trends)
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2]{style="opacity:0.25"} 3 [4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| code-line-numbers: "1-2|3|4-5|6-9"
+#| eval: false
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  geom_smooth(aes(x = itn_coverage, y = pfpr)) + 
+  scale_x_continuous(labels = percent_format()) + 
+  scale_y_continuous(labels = percent_format()) +
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  geom_smooth(aes(x = itn_coverage, y = pfpr)) + 
+  scale_x_continuous(labels = percent_format()) + 
+  scale_y_continuous(labels = percent_format()) +
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+---
+
+Practial: Implement residence-specific trends, 
+<br>
+hint: `color = residence`
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(busia) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  geom_smooth(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  scale_x_continuous(labels = percent_format()) + 
+  scale_y_continuous(labels = percent_format()) +
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+---
+
+## Adding functionality (panels)
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2]{style="opacity:0.25"} 3 [4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| code-line-numbers: "1-5|6|7-10"
+#| eval: false
+ggplot(mdata |> filter(county %in% c('Turkana', 'Busia', 'Nairobi'))) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  geom_smooth(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  scale_x_continuous(labels = percent_format()) + 
+  scale_y_continuous(labels = percent_format()) +
+  facet_wrap(~county, scale = 'free') + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(mdata |> filter(county %in% c('Kajiado', 'Busia', 'Nairobi'))) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  geom_smooth(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  scale_x_continuous(labels = percent_format()) + 
+  scale_y_continuous(labels = percent_format()) +
+  facet_wrap(~county, scale = 'free') + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+---
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2]{style="opacity:0.25"} 3 [4 5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| echo: false
+#| fig-height: 10
+#| fig-width: 14
+#| fig-align: "center"
+ggplot(mdata) + 
+  geom_point(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  geom_smooth(aes(x = itn_coverage, y = pfpr, color = residence)) + 
+  scale_x_continuous(labels = percent_format()) + 
+  scale_y_continuous(labels = percent_format()) +
+  facet_wrap(~county, scale = 'free') + 
+  labs(title = 'The relationship between ITN use and PfPr',
+       x = 'ITN Coverage (%)',
+       y = 'PfPr (%)') + 
+  theme_bw()
+```
+
+
+---
+
+## Bar charts and column charts
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3]{style="opacity:0.25"} 4 [5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| code-line-numbers: "1-4"
+#| eval: false
+rain_data <- read.csv('data/interim/rainfall_data.csv')
+
+head(rain_data)
+```
+
+. . .
+
+How do we filter to end up with: year: 2023,  the counties: [Mombasa, Turkana, Nyeri], residence: urban centers only ?
+
+How do we order the dataset by county, year and month ?
+
+---
+
+```{r}
+#| code-line-numbers: "1-14"
+#| eval: false
+rain_data <- read.csv('data/interim/rainfall_data.csv')
+
+r1_data <- rain_data |>
+  
+  # adding andf modifying existing columns
+  mutate(month = factor(month, levels = c("Jan", "Feb", "Mar", "Apr",
+                                              "May", "Jun", "Jul", "Aug", "Sep", 
+                                              "Oct", "Nov", "Dec"))) |>
+  
+  # filtering
+  filter(county %in% c('Mombasa', 'Turkana', 'Nyeri') & year == 2023 & residence == 'urban') |>
+  
+  # ordering
+  arrange(desc(year), month, county)
+```
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-align: "center"
+rain_data <- read.csv('data/interim/rainfall_data.csv')
+
+r1_data <- rain_data |>
+  
+  # adding andf modifying existing columns
+  mutate(month = factor(month, levels = c("Jan", "Feb", "Mar", "Apr",
+                                              "May", "Jun", "Jul", "Aug", "Sep", 
+                                              "Oct", "Nov", "Dec"))) |>
+  
+  # filtering
+  filter(county %in% c('Mombasa', 'Turkana', 'Nyeri') & year == 2023 & residence == 'urban') |>
+  
+  # ordering
+  arrange(desc(year), month, county)
+
+```
+
+---
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3]{style="opacity:0.25"} 4 [5 6]{style="opacity:0.25"}
+:::
+:::
+
+```{r}
+#| code-line-numbers: "1-5|6|7-10"
+#| eval: false
+ggplot(data = r1_data |> filter(county == 'Mombasa')) + 
+  geom_col(aes(x = month, y = rainfall)) + 
+  labs(title = 'Monthly rainfall (in mm)',
+       x = 'Month',
+       y = 'Rainfall values (in mm)') + 
+  theme_bw()
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(data = r1_data |> filter(county == 'Mombasa')) + 
+  geom_col(aes(x = month, y = rainfall)) + 
+  labs(title = 'Monthly rainfall (in mm)',
+       x = 'Month',
+       y = 'Rainfall values (in mm)') + 
+  theme_bw()
+```
+
+---
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3]{style="opacity:0.25"} 4 [5 6]{style="opacity:0.25"}
+:::
+:::
+
+Plotting the rest ...
+
+. . .
+
+```{r}
+#| code-line-numbers: "1-5|6|7-10"
+#| eval: false
+ggplot(data = r1_data) + 
+  geom_col(aes(x = month, y = rainfall, fill = county)) + 
+  labs(title = 'Monthly rainfall (in mm)',
+       x = 'Month',
+       y = 'Rainfall values (in mm)') + 
+  theme_bw() + 
+  facet_wrap(~county, nrow = 2)
+```
+
+. . .
+
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(data = r1_data) + 
+  geom_col(aes(x = month, y = rainfall, fill = county)) + 
+  labs(title = 'Monthly rainfall (in mm)',
+       x = 'Month',
+       y = 'Rainfall values (in mm)') + 
+  theme_bw() + 
+  facet_wrap(~county, nrow = 2)
+```
+
+---
+
+## Maps
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3 4]{style="opacity:0.25"} 5 [6]{style="opacity:0.25"}
+:::
+:::
+
+For plotting maps, we will need a shapefile - essentially a data object holding the geometry of locations, to be plotted on maps (boundaries, lines, etc)
+
+```{r}
+#| code-line-numbers: "1-4"
+#| eval: false
+shp <- st_read('data/interim/shp/kenyan_counties.shp')
+head(shp)
+```
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+shp <- st_read('data/interim/shp/kenyan_counties.shp')
+head(shp)
+```
+
+
+---
+
+## Plotting simple maps - without data
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3 4]{style="opacity:0.25"} 5 [6]{style="opacity:0.25"}
+:::
+:::
+
+The geometric object to use is the `geom_sf`, and a neat theme, preferrably `theme_void`
+
+```{r}
+#| code-line-numbers: "1-4"
+#| eval: false
+ggplot(shp) + 
+  geom_sf(aes(geometry = geometry, fill = name_1), 
+          show.legend = F) + 
+  theme_void()
+```
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: "center"
+ggplot(shp) + 
+  geom_sf(aes(geometry = geometry, fill = name_1), 
+          show.legend = F) + 
+  theme_void()
+```
+
+
+---
+
+## Plotting simple maps - with PfPr data
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3 4]{style="opacity:0.25"} 5 [6]{style="opacity:0.25"}
+:::
+:::
+
+We need to merge our datasets together (shapefile and data), to have a single shapefile with the data column of interest, the `EIR` (transmission intensity).
+
+
+```{r}
+#| code-line-numbers: "1-7"
+#| eval: false
+eir_data <- read.csv('data/interim/eir_data.csv')
+shp_data <- merge(shp, eir_data, by = 'name_1')
+
+ggplot(shp_data) + 
+  geom_sf(aes(geometry = geometry, fill = eir)) + 
+  theme_void()
+```
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-width: 4
+#| fig-align: "center"
+eir_data <- read.csv('data/interim/eir_data.csv')
+shp_data <- merge(shp, eir_data, by = 'name_1')
+
+ggplot(shp_data) + 
+  geom_sf(aes(geometry = geometry, fill = eir)) + 
+  theme_void()
+```
+
+
+---
+
+## ggplot2 resources
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3 4 5]{style="opacity:0.25"} 6
+:::
+:::
+
+from [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html)
+
+<br>
+
+[Data Visualization: a practical introduction](https://socviz.co/index.html#preface)
+
+<br>
+
+creating [custom themes](https://themockup.blog/posts/2020-12-26-creating-and-using-custom-ggplot2-themes/)
+
+<br>
+
+the [ggplot2 book](https://ggplot2-book.org/)
+
+<br>
+
+the [R graph gallery](https://r-graph-gallery.com/index.html)
+
+---
+
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3 4 5]{style="opacity:0.25"} 6
+:::
+:::
+
+Examples of plots from R-Gallery:
+
+```{=html}
+<iframe width="1000" height="600" src="https://r-graph-gallery.com/" title="R graph Gallery example"></iframe>
+```
+
+---
+
+## Putting it all together
+
+::: {.absolute top="0" left="100%"}
+::: {.sectionhead}
+[1 2 3 4 5]{style="opacity:0.25"} 6
+:::
+:::
+
+<br>
+
+with what we've done so far, in your `.R` file:
+
+::: {.incremental}
+- Basics and fundamentals of R programming
+- Visualization of epi data
+:::
+
+. . .
+
+::: {style="text-align: center"}
+**and that file would make it extremely easy for you or someone else to reproduce this analysis.**
+:::
