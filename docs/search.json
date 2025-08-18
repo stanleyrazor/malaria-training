@@ -98,17 +98,24 @@
     "text": "Plotting simple maps - with PfPr data\n\n\n1 2 3 4 5 6\n\n\nWe need to merge our datasets together (shapefile and data), to have a single shapefile with the data column of interest, the EIR (transmission intensity).\n\neir_data &lt;- read.csv('data/interim/eir_data.csv')\nshp_data &lt;- merge(shp, eir_data, by = 'name_1')\n\nggplot(shp_data) + \n  geom_sf(aes(geometry = geometry, fill = eir)) + \n  theme_void()"
   },
   {
+    "objectID": "R/dataviz/dataviz.html#saving-graphs",
+    "href": "R/dataviz/dataviz.html#saving-graphs",
+    "title": "Data visualiaation with {ggplot2}",
+    "section": "Saving graphs",
+    "text": "Saving graphs\n\n\n1 2 3 4 5 6\n\n\nGraphs can be saved in pdf, png, jpg, svg and other formats, using the ggsave command. We need to specify the path (folder) where we want the plot saved, and other plot parameters such as height, width, dpi etc.\n\nmy_map_1 &lt;- ggplot(shp_data) + \n  geom_sf(aes(geometry = geometry, fill = eir)) + \n  theme_void()\n\nggsave(\n  filename = \"output/img/kenyan map with pfpr.R\",\n  plot = my_plot_1,\n  height = 6,\n  width = 6\n)"
+  },
+  {
     "objectID": "R/dataviz/dataviz.html#ggplot2-resources",
     "href": "R/dataviz/dataviz.html#ggplot2-resources",
     "title": "Data visualiaation with {ggplot2}",
     "section": "ggplot2 resources",
-    "text": "ggplot2 resources\n\n\n1 2 3 4 5 6\n\n\nfrom R for Data Science\n\nData Visualization: a practical introduction\n\ncreating custom themes\n\nthe ggplot2 book\n\nthe R graph gallery"
+    "text": "ggplot2 resources\n\n\n1 2 3 4 5 6 7\n\n\nfrom R for Data Science\n\nData Visualization: a practical introduction\n\ncreating custom themes\n\nthe ggplot2 book\n\nthe R graph gallery"
   },
   {
     "objectID": "R/dataviz/dataviz.html#putting-it-all-together",
     "href": "R/dataviz/dataviz.html#putting-it-all-together",
     "title": "Data visualiaation with {ggplot2}",
     "section": "Putting it all together",
-    "text": "Putting it all together\n\n\n1 2 3 4 5 6\n\n\n\nwith what we’ve done so far, in your .R file:\n\n\nBasics and fundamentals of R programming\nVisualization of epi data\n\n\n\n\nand that file would make it extremely easy for you or someone else to reproduce this analysis.\n\n\n\n\nCredits: github.com/meghall06/neair"
+    "text": "Putting it all together\n\n\n1 2 3 4 5 6 7\n\n\n\nwith what we’ve done so far, in your .R file:\n\n\nBasics and fundamentals of R programming\nVisualization of epi data\n\n\n\n\nand that file would make it extremely easy for you or someone else to reproduce this analysis.\n\n\n\n\nCredits: github.com/meghall06/neair"
   }
 ]
